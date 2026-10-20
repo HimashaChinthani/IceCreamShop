@@ -1,4 +1,3 @@
-
 package database
 
 import (
@@ -10,6 +9,8 @@ import (
 	"gorm.io/gorm"
 )
 
+var DB *gorm.DB
+
 func Connect() *gorm.DB {
 	db, err := gorm.Open(sqlite.Open("icecream.db"), &gorm.Config{})
 	if err != nil {
@@ -20,6 +21,7 @@ func Connect() *gorm.DB {
 		&models.User{},
 		&models.Item{},
 		&models.Customer{},
+		&models.Inventory{},
 	)
 	if err != nil {
 		log.Fatal("Failed to migrate database:", err)
@@ -28,5 +30,6 @@ func Connect() *gorm.DB {
 	log.Println("SQLite database connected successfully")
 	log.Println("Database tables created successfully")
 
+	DB = db
 	return db
 }
