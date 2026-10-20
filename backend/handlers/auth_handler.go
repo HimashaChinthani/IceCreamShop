@@ -1,4 +1,3 @@
-
 package handlers
 
 import (
@@ -26,10 +25,10 @@ type LoginRequest struct {
 }
 
 type LoginResponse struct {
-	Message     string `json:"message"`
-	AccessToken string `json:"access_token"`
-	TokenType   string `json:"token_type"`
-	ExpiresIn   int64  `json:"expires_in"`
+	Message     string   `json:"message"`
+	AccessToken string   `json:"access_token"`
+	TokenType   string   `json:"token_type"`
+	ExpiresIn   int64    `json:"expires_in"`
 	User        UserInfo `json:"user"`
 }
 
