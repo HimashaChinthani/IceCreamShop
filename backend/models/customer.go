@@ -10,4 +10,6 @@ type Customer struct {
 	Address   string    `gorm:"size:300" json:"address"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+	CreatedBy *uint     `json:"created_by" gorm:"index"`
+	Creator   *User     `json:"-" gorm:"foreignKey:CreatedBy;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }

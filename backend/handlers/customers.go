@@ -52,6 +52,12 @@ func CreateCustomer(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"error": "Name is required"})
 	}
 
+	userID, ok := c.Locals("userID").(uint)
+	if !ok || userID == 0 {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Authentication required"})
+	}
+	customer.CreatedBy = &userID
+
 	if err := database.DB.Create(&customer).Error; err != nil {
 		return c.Status(409).JSON(fiber.Map{"error": "Could not create customer; check for duplicate email"})
 	}

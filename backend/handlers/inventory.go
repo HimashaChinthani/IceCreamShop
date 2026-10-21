@@ -72,6 +72,11 @@ func CreateInventory(c *fiber.Ctx) error {
 	}
 
 	item.ID = 0
+	userID, ok := c.Locals("userID").(uint)
+	if !ok || userID == 0 {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Authentication required"})
+	}
+	item.CreatedBy = &userID
 
 	if err := database.DB.Create(&item).Error; err != nil {
 		return c.Status(409).JSON(fiber.Map{

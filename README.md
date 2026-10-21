@@ -45,6 +45,8 @@ token after logout.
 
 Inventory endpoints use `/api/inventory` and support `?search=<name-or-sku>`.
 Customer endpoints use `/api/customers` and support `?search=<name-email-phone>`.
+Each inventory item and customer record stores the authenticated creator in
+`created_by`, referencing `users.id`.
 
 | Role | Inventory | Customers |
 | --- | --- | --- |

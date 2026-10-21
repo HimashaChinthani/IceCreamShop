@@ -17,6 +17,7 @@ erDiagram
         datetime created_at
         datetime updated_at
         datetime deleted_at
+        uint created_by FK
     }
     CUSTOMERS {
         uint id PK
@@ -26,4 +27,8 @@ erDiagram
         string address
         datetime created_at
         datetime updated_at
+        uint created_by FK
     }
+
+    USERS ||--o{ INVENTORIES : creates
+    USERS ||--o{ CUSTOMERS : creates

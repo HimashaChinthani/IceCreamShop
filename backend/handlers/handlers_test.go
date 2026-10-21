@@ -32,6 +32,10 @@ func setupHandlerTest(t *testing.T) {
 func requestJSON(t *testing.T, method, path, body string, handler fiber.Handler) *http.Response {
 	t.Helper()
 	app := fiber.New()
+	app.Use(func(c *fiber.Ctx) error {
+		c.Locals("userID", uint(1))
+		return c.Next()
+	})
 	app.Add(method, path, handler)
 	req := httptest.NewRequest(method, path, strings.NewReader(body))
 	req.Header.Set("Content-Type", "application/json")
@@ -48,6 +52,10 @@ func TestInventorySearch(t *testing.T) {
 	database.DB.Create(&models.Inventory{Name: "Vanilla", SKU: "VAN-1", Quantity: 2, Price: 3})
 
 	app := fiber.New()
+	app.Use(func(c *fiber.Ctx) error {
+		c.Locals("userID", uint(1))
+		return c.Next()
+	})
 	app.Get("/api/inventory", GetInventory)
 	req := httptest.NewRequest("GET", "/api/inventory?search=choc", nil)
 	resp, err := app.Test(req)
