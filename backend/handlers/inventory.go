@@ -12,8 +12,14 @@ import (
 
 func GetInventory(c *fiber.Ctx) error {
 	var items []models.Inventory
+	query := strings.TrimSpace(c.Query("search"))
+	db := database.DB
 
-	if err := database.DB.Find(&items).Error; err != nil {
+	if query != "" {
+		db = db.Where("name LIKE ? OR sku LIKE ?", "%"+query+"%", "%"+query+"%")
+	}
+
+	if err := db.Order("name asc").Find(&items).Error; err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"error": "Failed to retrieve inventory",
 		})

@@ -27,6 +27,7 @@ type LoginRequest struct {
 type LoginResponse struct {
 	Message     string   `json:"message"`
 	AccessToken string   `json:"access_token"`
+	Token       string   `json:"token"`
 	TokenType   string   `json:"token_type"`
 	ExpiresIn   int64    `json:"expires_in"`
 	User        UserInfo `json:"user"`
@@ -124,6 +125,7 @@ func (h *AuthHandler) Login(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(LoginResponse{
 		Message:     "Login successful",
 		AccessToken: signedToken,
+		Token:       signedToken,
 		TokenType:   "Bearer",
 		ExpiresIn:   43200,
 		User: UserInfo{
@@ -133,4 +135,11 @@ func (h *AuthHandler) Login(c *fiber.Ctx) error {
 			Role:     user.Role,
 		},
 	})
+}
+
+// Logout is intentionally stateless: the client discards its JWT. A JWT cannot
+// be revoked without maintaining a server-side denylist or using short-lived
+// sessions.
+func (h *AuthHandler) Logout(c *fiber.Ctx) error {
+	return c.SendStatus(fiber.StatusNoContent)
 }

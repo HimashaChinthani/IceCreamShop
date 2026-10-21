@@ -1,0 +1,29 @@
+erDiagram
+    USERS {
+        uint id PK
+        string full_name
+        string email UK
+        string password_hash
+        string role
+        datetime created_at
+        datetime updated_at
+    }
+    INVENTORIES {
+        uint id PK
+        string name
+        string sku UK
+        int quantity
+        decimal price
+        datetime created_at
+        datetime updated_at
+        datetime deleted_at
+    }
+    CUSTOMERS {
+        uint id PK
+        string name
+        string email UK
+        string phone
+        string address
+        datetime created_at
+        datetime updated_at
+    }

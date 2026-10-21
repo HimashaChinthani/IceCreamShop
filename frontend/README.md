@@ -1,16 +1,34 @@
-# React + Vite
+# IceCream POS frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Run locally
 
-Currently, two official plugins are available:
+1. Start the Go API:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+   ```powershell
+   cd ..\backend
+   go run .
+   ```
 
-## React Compiler
+2. Start the frontend:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+   ```powershell
+   cd frontend
+   npm install
+   npm run dev
+   ```
 
-## Expanding the Oxlint configuration
+The Vite development server proxies `/api` requests to `http://localhost:4000`.
+For a separately hosted API, set `VITE_API_URL` to the API URL including `/api`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Connected features
+
+- JWT login at `/api/auth/login`
+- Dashboard inventory summary
+- Inventory list, search, create, update, and delete
+- Customer list, search, create, update, and delete
+- Role-aware actions for Owner, Manager, and Cashier
+
+The backend seed command creates the Owner, Manager, and Cashier accounts. Set
+`SEED_OWNER_PASSWORD`, `SEED_MANAGER_PASSWORD`, and `SEED_CASHIER_PASSWORD`
+before running `go run .\cmd\seed` from the `backend` directory. See the
+repository [README](../README.md) for the complete setup and API documentation.

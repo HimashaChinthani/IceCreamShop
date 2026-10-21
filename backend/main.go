@@ -49,7 +49,13 @@ func main() {
 	// Authentication endpoints.
 	auth := handlers.NewAuthHandler(db)
 	app.Post("/api/auth/login", auth.Login)
+	app.Post(
+		"/api/auth/logout",
+		authMiddleware.AuthRequired([]byte(secret)),
+		auth.Logout,
+	)
 	routes.RegisterInventoryRoutes(app, []byte(secret))
+	routes.RegisterCustomerRoutes(app, []byte(secret))
 
 	// Protected endpoints.
 	protected := app.Group(

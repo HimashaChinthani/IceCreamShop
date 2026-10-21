@@ -43,3 +43,16 @@ func RegisterInventoryRoutes(app *fiber.App, secret []byte) {
 		handlers.DeleteInventory,
 	)
 }
+
+func RegisterCustomerRoutes(app *fiber.App, secret []byte) {
+	customers := app.Group(
+		"/api/customers",
+		middleware.AuthRequired(secret),
+	)
+
+	customers.Get("/", handlers.GetCustomers)
+	customers.Get("/:id", handlers.GetCustomerByID)
+	customers.Post("/", middleware.RequireRoles("Owner", "Manager", "Cashier"), handlers.CreateCustomer)
+	customers.Put("/:id", middleware.RequireRoles("Owner", "Manager", "Cashier"), handlers.UpdateCustomer)
+	customers.Delete("/:id", middleware.RequireRoles("Owner"), handlers.DeleteCustomer)
+}
