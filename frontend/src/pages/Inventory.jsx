@@ -12,6 +12,7 @@ import { getCurrentUser } from "../services/auth";
 
 const emptyForm = {
   name: "",
+  category: "",
   sku: "",
   quantity: 0,
   price: 0,
@@ -31,11 +32,11 @@ export default function Inventory() {
   const user = getCurrentUser();
   const role = user?.role?.toLowerCase();
 
-  const canManage = role === "owner" || role === "manager";
+  const canCreate = role === "owner" || role === "manager";
+  const canEdit = ["owner", "manager", "cashier"].includes(role);
   const canDelete = role === "owner";
 
   async function loadInventory() {
-    setLoading(true);
     setError("");
 
     try {
@@ -67,6 +68,7 @@ export default function Inventory() {
     setEditingItem(item);
     setForm({
       name: item.name,
+      category: item.category || "",
       sku: item.sku,
       quantity: item.quantity,
       price: item.price,
@@ -93,6 +95,7 @@ export default function Inventory() {
 
     const payload = {
       name: form.name.trim(),
+      category: form.category.trim(),
       sku: form.sku.trim(),
       quantity: Number(form.quantity),
       price: Number(form.price),
@@ -148,6 +151,7 @@ export default function Inventory() {
 
     return (
       item.name.toLowerCase().includes(query) ||
+      item.category?.toLowerCase().includes(query) ||
       item.sku.toLowerCase().includes(query)
     );
   });
@@ -163,7 +167,7 @@ export default function Inventory() {
           </p>
         </div>
 
-        {canManage && (
+        {canCreate && (
           <button className="primary-button" onClick={openCreateModal}>
             <Plus size={18} />
             Add Product
@@ -203,10 +207,11 @@ export default function Inventory() {
                 <tr>
                   <th>Product</th>
                   <th>SKU</th>
+                  <th>Category</th>
                   <th>Quantity</th>
                   <th>Price</th>
                   <th>Stock Value</th>
-                  {(canManage || canDelete) && <th>Actions</th>}
+                  {(canEdit || canDelete) && <th>Actions</th>}
                 </tr>
               </thead>
 
@@ -222,6 +227,7 @@ export default function Inventory() {
                       </div>
                     </td>
                     <td>{item.sku}</td>
+                    <td>{item.category}</td>
                     <td>
                       <span
                         className={
@@ -242,10 +248,10 @@ export default function Inventory() {
                         Number(item.quantity) * Number(item.price)
                       ).toFixed(2)}
                     </td>
-                    {(canManage || canDelete) && (
+                    {(canEdit || canDelete) && (
                       <td>
                         <div className="action-buttons">
-                          {canManage && (
+                          {canEdit && (
                             <button
                               className="icon-button"
                               title="Edit product"
@@ -273,7 +279,7 @@ export default function Inventory() {
                 {filteredItems.length === 0 && (
                   <tr>
                     <td
-                      colSpan={canManage || canDelete ? 6 : 5}
+                      colSpan={canEdit || canDelete ? 7 : 6}
                       className="empty-table"
                     >
                       No matching inventory items found.
@@ -312,6 +318,16 @@ export default function Inventory() {
                   onChange={updateField}
                   required
                   maxLength={120}
+                />
+              </label>
+              <label>
+                Category
+                <input
+                  name="category"
+                  value={form.category}
+                  onChange={updateField}
+                  placeholder="Chocolate"
+                  required
                 />
               </label>
 

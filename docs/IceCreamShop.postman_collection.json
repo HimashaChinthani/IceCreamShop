@@ -1,57 +1,234 @@
-{
-  "info": {
-    "_postman_id": "7f5dc91a-6f5a-4e0c-b1e7-icecreamshop",
-    "name": "Ice Cream Shop API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "variable": [
-    { "key": "baseUrl", "value": "http://localhost:4000" },
-    { "key": "token", "value": "" },
-    { "key": "itemId", "value": "1" },
-    { "key": "customerId", "value": "1" }
-  ],
-  "item": [
-    {
-      "name": "Authentication",
-      "item": [
-        {
-          "name": "Login",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": { "mode": "raw", "raw": "{\"email\":\"owner@icecream.local\",\"password\":\"change-me-owner\"}" },
-            "url": "{{baseUrl}}/api/auth/login"
-          }
-        },
-        {
-          "name": "Logout",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
-            "url": "{{baseUrl}}/api/auth/logout"
-          }
-        }
-      ]
-    },
-    {
-      "name": "Inventory",
-      "item": [
-        { "name": "List inventory", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/api/inventory?search=chocolate" } },
-        { "name": "Get inventory item", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/api/inventory/{{itemId}}" } },
-        { "name": "Create inventory item", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"name\":\"Chocolate\",\"sku\":\"CHO-001\",\"quantity\":20,\"price\":3.5}" }, "url": "{{baseUrl}}/api/inventory" } },
-        { "name": "Update inventory item", "request": { "method": "PUT", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"name\":\"Chocolate\",\"sku\":\"CHO-001\",\"quantity\":18,\"price\":3.75}" }, "url": "{{baseUrl}}/api/inventory/{{itemId}}" } },
-        { "name": "Delete inventory item", "request": { "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/api/inventory/{{itemId}}" } }
-      ]
-    },
-    {
-      "name": "Customers",
-      "item": [
-        { "name": "List customers", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/api/customers?search=alice" } },
-        { "name": "Get customer", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/api/customers/{{customerId}}" } },
-        { "name": "Create customer", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"name\":\"Alice\",\"email\":\"alice@example.com\",\"phone\":\"0771234567\",\"address\":\"Colombo\"}" }, "url": "{{baseUrl}}/api/customers" } },
-        { "name": "Update customer", "request": { "method": "PUT", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"name\":\"Alice Updated\",\"email\":\"alice@example.com\",\"phone\":\"0771234567\",\"address\":\"Colombo\"}" }, "url": "{{baseUrl}}/api/customers/{{customerId}}" } },
-        { "name": "Delete customer", "request": { "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/api/customers/{{customerId}}" } }
-      ]
-    }
-  ]
+﻿{
+    "info":  {
+                 "_postman_id":  "7f5dc91a-6f5a-4e0c-b1e7-icecreamshop",
+                 "name":  "Ice Cream Shop API",
+                 "schema":  "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+             },
+    "variable":  [
+                     {
+                         "key":  "baseUrl",
+                         "value":  "http://localhost:4000"
+                     },
+                     {
+                         "key":  "token",
+                         "value":  ""
+                     },
+                     {
+                         "key":  "itemId",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "customerId",
+                         "value":  "1"
+                     }
+                 ],
+    "item":  [
+                 {
+                     "name":  "Authentication",
+                     "item":  [
+                                  {
+                                      "name":  "Login",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\"email\":\"owner@icecream.local\",\"password\":\"change-me-owner\"}"
+                                                               },
+                                                      "url":  "{{baseUrl}}/api/auth/login"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Logout",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Authorization",
+                                                                         "value":  "Bearer {{token}}"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/api/auth/logout"
+                                                  }
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Inventory",
+                     "item":  [
+                                  {
+                                      "name":  "List inventory",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Authorization",
+                                                                         "value":  "Bearer {{token}}"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/api/inventory?search=chocolate"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Get inventory item",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Authorization",
+                                                                         "value":  "Bearer {{token}}"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/api/inventory/{{itemId}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Create inventory item",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Authorization",
+                                                                         "value":  "Bearer {{token}}"
+                                                                     },
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\"name\":\"Chocolate\",\"category\":\"Chocolate\",\"sku\":\"CHO-001\",\"quantity\":20,\"price\":3.5}"
+                                                               },
+                                                      "url":  "{{baseUrl}}/api/inventory"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Update inventory item",
+                                      "request":  {
+                                                      "method":  "PUT",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Authorization",
+                                                                         "value":  "Bearer {{token}}"
+                                                                     },
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\"name\":\"Chocolate\",\"category\":\"Chocolate\",\"sku\":\"CHO-001\",\"quantity\":18,\"price\":3.75}"
+                                                               },
+                                                      "url":  "{{baseUrl}}/api/inventory/{{itemId}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Delete inventory item",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Authorization",
+                                                                         "value":  "Bearer {{token}}"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/api/inventory/{{itemId}}"
+                                                  }
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Customers",
+                     "item":  [
+                                  {
+                                      "name":  "List customers",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Authorization",
+                                                                         "value":  "Bearer {{token}}"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/api/customers?search=alice"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Get customer",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Authorization",
+                                                                         "value":  "Bearer {{token}}"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/api/customers/{{customerId}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Create customer",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Authorization",
+                                                                         "value":  "Bearer {{token}}"
+                                                                     },
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\"name\":\"Alice\",\"email\":\"alice@example.com\",\"phone\":\"0771234567\",\"address\":\"Colombo\"}"
+                                                               },
+                                                      "url":  "{{baseUrl}}/api/customers"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Update customer",
+                                      "request":  {
+                                                      "method":  "PUT",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Authorization",
+                                                                         "value":  "Bearer {{token}}"
+                                                                     },
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\"name\":\"Alice Updated\",\"email\":\"alice@example.com\",\"phone\":\"0771234567\",\"address\":\"Colombo\"}"
+                                                               },
+                                                      "url":  "{{baseUrl}}/api/customers/{{customerId}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Delete customer",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Authorization",
+                                                                         "value":  "Bearer {{token}}"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/api/customers/{{customerId}}"
+                                                  }
+                                  }
+                              ]
+                 }
+             ]
 }

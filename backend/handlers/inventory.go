@@ -61,8 +61,12 @@ func CreateInventory(c *fiber.Ctx) error {
 
 	if item.Name == "" || item.SKU == "" {
 		return c.Status(400).JSON(fiber.Map{
-			"error": "Name and SKU are required",
+			"error": "Name, category, and SKU are required",
 		})
+	}
+	item.Category = strings.TrimSpace(item.Category)
+	if item.Category == "" {
+		return c.Status(400).JSON(fiber.Map{"error": "Name, category, and SKU are required"})
 	}
 
 	if item.Quantity < 0 || item.Price < 0 {
@@ -105,6 +109,7 @@ func UpdateInventory(c *fiber.Ctx) error {
 
 	var input struct {
 		Name     string  `json:"name"`
+		Category string  `json:"category"`
 		SKU      string  `json:"sku"`
 		Quantity int     `json:"quantity"`
 		Price    float64 `json:"price"`
@@ -117,11 +122,12 @@ func UpdateInventory(c *fiber.Ctx) error {
 	}
 
 	input.Name = strings.TrimSpace(input.Name)
+	input.Category = strings.TrimSpace(input.Category)
 	input.SKU = strings.TrimSpace(input.SKU)
 
-	if input.Name == "" || input.SKU == "" {
+	if input.Name == "" || input.Category == "" || input.SKU == "" {
 		return c.Status(400).JSON(fiber.Map{
-			"error": "Name and SKU are required",
+			"error": "Name, category, and SKU are required",
 		})
 	}
 
@@ -132,6 +138,7 @@ func UpdateInventory(c *fiber.Ctx) error {
 	}
 
 	item.Name = input.Name
+	item.Category = input.Category
 	item.SKU = input.SKU
 	item.Quantity = input.Quantity
 	item.Price = input.Price

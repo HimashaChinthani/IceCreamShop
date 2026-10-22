@@ -9,6 +9,7 @@ import (
 type Inventory struct {
 	ID        uint           `json:"id" gorm:"primaryKey"`
 	Name      string         `json:"name" gorm:"not null"`
+	Category  string         `json:"category" gorm:"size:50;not null;index"`
 	SKU       string         `json:"sku" gorm:"uniqueIndex;not null"`
 	Quantity  int            `json:"quantity" gorm:"not null;default:0"`
 	Price     float64        `json:"price" gorm:"not null"`

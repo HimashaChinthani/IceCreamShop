@@ -48,8 +48,8 @@ func requestJSON(t *testing.T, method, path, body string, handler fiber.Handler)
 
 func TestInventorySearch(t *testing.T) {
 	setupHandlerTest(t)
-	database.DB.Create(&models.Inventory{Name: "Chocolate", SKU: "CHO-1", Quantity: 4, Price: 3.5})
-	database.DB.Create(&models.Inventory{Name: "Vanilla", SKU: "VAN-1", Quantity: 2, Price: 3})
+	database.DB.Create(&models.Inventory{Name: "Chocolate", Category: "Chocolate", SKU: "CHO-1", Quantity: 4, Price: 3.5})
+	database.DB.Create(&models.Inventory{Name: "Vanilla", Category: "Vanilla", SKU: "VAN-1", Quantity: 2, Price: 3})
 
 	app := fiber.New()
 	app.Use(func(c *fiber.Ctx) error {
