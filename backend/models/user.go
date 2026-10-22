@@ -10,6 +10,6 @@ type User struct {
 	Role         string      `gorm:"size:20;not null" json:"role"`
 	CreatedAt    time.Time   `json:"created_at"`
 	UpdatedAt    time.Time   `json:"updated_at"`
-	Inventory    []Inventory `json:"-"`
-	Customers    []Customer  `json:"-"`
+	Inventory    []Inventory `json:"-" gorm:"foreignKey:CreatedBy"`
+	Customers    []Customer  `json:"-" gorm:"foreignKey:CreatedBy"`
 }
